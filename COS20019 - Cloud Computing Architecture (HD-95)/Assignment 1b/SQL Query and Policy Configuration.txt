@@ -1,0 +1,49 @@
+Install phpMyAdmin script
+
+	cd /var/www/html
+	wget https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-english.zip
+	unzip phpMyAdmin-5.2.1-english.zip
+	mv phpMyAdmin-5.2.1-english phpmyadmin
+
+
+CREATE DATABASE IF NOT EXISTS assignment1b_db;
+
+USE assignment1b_db;
+
+CREATE TABLE photos(
+	title VARCHAR(255),
+    description VARCHAR(255),
+    creation_date DATE,
+    keywords VARCHAR(255),
+    s3_reference VARCHAR(255)
+);
+
+
+INSERT INTO photos (title, description, creation_date, keywords,s3_reference)
+VALUES ("Milk Logo", "Logo of a cat named Milk", "2021-06-4", "milk, cat, logo","https://tnguyenawsbucket.s3.amazonaws.com/Milk.jpg");
+
+INSERT INTO photos (title, description, creation_date, keywords,s3_reference)
+VALUES ("MilkyMeowyyy", "Image of a cat named Milk", "2021-06-06", "milk, cat","https://tnguyenawsbucket.s3.amazonaws.com/milkymeowyyy.jpg");
+
+INSERT INTO photos (title, description, creation_date, keywords,s3_reference)
+VALUES ("Milk Logo", "Logo of a cat named Milk", "2021-06-4", "milk, cat, logo","https://tnguyenawsbucket.s3.amazonaws.com/Milk.jpg");
+
+
+
+S3 Policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::tnguyenawsbucket/*"
+            ]
+        }
+    ]
+}
